@@ -69,7 +69,20 @@ class ProgramGroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def program_group_params
-      # params.require(:program_group).permit(:user_id, :public, :name, :description)
-      params.require(:program_group).permit(:user_id, :public, :name, :description, programs_attributes: [:id, :user_id, :public, :name, :description, :_destroy])
+      params.require(:program_group)
+      .permit(:user_id, :public, :name, :description, 
+              programs_attributes: [
+                :id, :user_id, :public, :name, :description, :_destroy,
+                program_workouts_attributes: [
+                  :id, :day_of_week, :_destroy,
+                  workout_attributes: [
+                    :id, :user_id, :public, :name, :description, :_destroy,
+                    workout_exercises_attributes: [
+                      :id, :set_num, :num_of_reps, :exercise_id, :weight, :exercise_order, :_destroy
+                    ]
+                  ]
+                ]
+              ]
+             )
     end
 end

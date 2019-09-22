@@ -1,2 +1,2 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<%= javascript_pack_tag 'application' %>
+<%= react_component('HomePage', {name: current_user&.name, imageUrl: current_user&.image_url, loggedIn: logged_in?}) %>
